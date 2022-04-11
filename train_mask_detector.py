@@ -1,4 +1,6 @@
 # import the necessary packages
+import keras.optimizer_v2.adam
+import tensorflow.python.keras.optimizer_v2.adam
 from keras.preprocessing.image import ImageDataGenerator
 from keras.applications.mobilenet_v2 import MobileNetV2
 from keras.layers import AveragePooling2D
@@ -7,7 +9,6 @@ from keras.layers import Flatten
 from keras.layers import Dense
 from keras.layers import Input
 from keras.models import Model
-from keras.optimizers import adam_v2
 from keras.applications.mobilenet_v2 import preprocess_input
 from keras.preprocessing.image import img_to_array
 from keras.preprocessing.image import load_img
@@ -93,7 +94,9 @@ for layer in baseModel.layers:
 
 # compile our model
 print("[INFO] compiling model...")
-opt = adam_v2(lr=INIT_LR, decay=INIT_LR / EPOCHS)
+# Adam optimizer with learning rate of 0.001
+
+opt = keras.optimizer_v2.adam.Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss="binary_crossentropy", optimizer=opt,
               metrics=["accuracy"])
 
